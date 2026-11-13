@@ -117,7 +117,10 @@
 
           <div class="display" aria-live="polite">
             <div class="display-meta">
-              <button id="angleMode" type="button" aria-label="Angle mode: RAD. Click to switch.">RAD</button>
+              <div class="angle-mode-control" role="group" aria-label="Angle mode">
+                <button class="angle-mode-option selected" type="button" data-angle-mode="RAD" aria-pressed="true">RAD</button>
+                <button class="angle-mode-option" type="button" data-angle-mode="DEG" aria-pressed="false">DEG</button>
+              </div>
               <span id="statusMessage" role="status"></span>
               <span id="previous"></span>
             </div>

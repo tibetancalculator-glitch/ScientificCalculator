@@ -190,7 +190,7 @@ if (typeof document !== 'undefined') {
 
   const expressionEl = document.querySelector('#expression');
   const previousEl = document.querySelector('#previous');
-  const angleModeEl = document.querySelector('#angleMode');
+  const angleModeOptions = document.querySelectorAll('.angle-mode-option');
   const statusMessageEl = document.querySelector('#statusMessage');
   const memoryEl = document.querySelector('#memoryIndicator');
   const shiftButton = document.querySelector('[data-action="shift"]');
@@ -203,8 +203,11 @@ if (typeof document !== 'undefined') {
   function render() {
     expressionEl.textContent = state.expression ? pretty(state.expression) : '༠';
     previousEl.textContent = state.previous;
-    angleModeEl.textContent = state.angleMode;
-    angleModeEl.setAttribute('aria-label', `Angle mode: ${state.angleMode}. Click to switch.`);
+    angleModeOptions.forEach(button => {
+      const selected = button.dataset.angleMode === state.angleMode;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
     statusMessageEl.textContent = state.message;
     statusMessageEl.classList.toggle('error', state.messageIsError);
     memoryEl.classList.toggle('visible', state.memory !== 0);
@@ -334,10 +337,14 @@ if (typeof document !== 'undefined') {
     render();
   }
 
-  angleModeEl.addEventListener('click', () => {
-    state.angleMode = state.angleMode === 'RAD' ? 'DEG' : 'RAD';
-    setMessage();
-    render();
+  angleModeOptions.forEach(button => {
+    button.addEventListener('click', () => {
+      const selectedMode = button.dataset.angleMode;
+      if (selectedMode === state.angleMode) return;
+      state.angleMode = selectedMode;
+      setMessage();
+      render();
+    });
   });
 
   document.querySelector('#keypad').addEventListener('click', event => {

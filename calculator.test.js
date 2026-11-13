@@ -56,7 +56,10 @@ function fakeElement({ dataset = {}, classes = [] } = {}) {
 
 const expressionEl = fakeElement();
 const previousEl = fakeElement();
-const angleModeEl = fakeElement();
+const angleModeOptions = [
+  fakeElement({ dataset: { angleMode: 'RAD' }, classes: ['angle-mode-option'] }),
+  fakeElement({ dataset: { angleMode: 'DEG' }, classes: ['angle-mode-option'] }),
+];
 const statusMessageEl = fakeElement();
 const memoryEl = fakeElement();
 const shiftButton = fakeElement({ dataset: { action: 'shift' }, classes: ['action'] });
@@ -74,14 +77,17 @@ global.document = {
     return {
       '#expression': expressionEl,
       '#previous': previousEl,
-      '#angleMode': angleModeEl,
       '#statusMessage': statusMessageEl,
       '#memoryIndicator': memoryEl,
       '[data-action="shift"]': shiftButton,
       '#keypad': keypad,
     }[selector];
   },
-  querySelectorAll(selector) { return selector === '.trig' ? trigButtons : []; },
+  querySelectorAll(selector) {
+    if (selector === '.trig') return trigButtons;
+    if (selector === '.angle-mode-option') return angleModeOptions;
+    return [];
+  },
   addEventListener(type, listener) { this.listeners[type] = listener; },
 };
 
@@ -121,7 +127,11 @@ click(action('calculate'));
 assert.equal(expressionEl.textContent, '༠.༢༥');
 
 click(action('clear'));
-angleModeEl.listeners.click();
+assert.equal(angleModeOptions[0].classList.contains('selected'), true);
+assert.equal(angleModeOptions[1].classList.contains('selected'), false);
+angleModeOptions[1].listeners.click();
+assert.equal(angleModeOptions[0].classList.contains('selected'), false);
+assert.equal(angleModeOptions[1].classList.contains('selected'), true);
 click(shiftButton);
 click(trigButtons[0]);
 click(value('༡'));
