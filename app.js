@@ -241,6 +241,13 @@ if (typeof document !== 'undefined') {
     const startsNewValue = value === 'pi' || value === 'e' || value === '(' ||
       /^[A-Za-z]+\($/.test(value);
 
+    if (startsWithNumber && state.expression.endsWith('%')) {
+      if (state.expression.length + value.length + 1 > 128) return;
+      state.expression += `*${value}`;
+      setMessage();
+      return render();
+    }
+
     if ((startsNewValue && (endsWithNumber || endsWithClosedValue)) ||
         (startsWithNumber && endsWithClosedValue)) {
       setMessage('Use × between values', true);

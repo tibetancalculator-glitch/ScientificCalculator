@@ -122,8 +122,8 @@ assert.equal(expressionEl.textContent, '༤');
 click(action('clear'));
 click(value('༩'));
 click(value('%', ['function']));
-click(value('*', ['operator']));
 click(value('༩'));
+assert.equal(expressionEl.textContent, '༩% × ༩');
 click(action('calculate'));
 assert.equal(expressionEl.textContent, '༠.༨༡');
 
