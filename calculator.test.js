@@ -22,9 +22,9 @@ closeTo(evaluateExpression('asin(༡)', 'DEG'), 90);
 closeTo(evaluateExpression('acos(༠)', 'DEG'), 90);
 closeTo(evaluateExpression('atan(༡)', 'DEG'), 45);
 
-closeTo(evaluateExpression('༢༥%'), 0.25);
+closeTo(evaluateExpression('༩%'), 0.09);
+closeTo(evaluateExpression('༩%*༩'), 0.81);
 closeTo(evaluateExpression('༢༠༠*༢༥%'), 50);
-closeTo(evaluateExpression('(༡༠+༡༥)%'), 0.25);
 
 assert.equal(format(Math.E), '༢.༧༡༨༢༨༡༨༢༨༤༦');
 assert.equal(pretty('༢**2'), '༢^༢');
@@ -120,11 +120,12 @@ click(action('memory-recall'));
 assert.equal(expressionEl.textContent, '༤');
 
 click(action('clear'));
-click(value('༢'));
-click(value('༥'));
+click(value('༩'));
 click(value('%', ['function']));
+click(value('*', ['operator']));
+click(value('༩'));
 click(action('calculate'));
-assert.equal(expressionEl.textContent, '༠.༢༥');
+assert.equal(expressionEl.textContent, '༠.༨༡');
 
 click(action('clear'));
 assert.equal(angleModeOptions[0].classList.contains('selected'), true);
