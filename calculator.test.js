@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const {
+  evaluateForDisplay,
   evaluateExpression,
   format,
   pretty,
@@ -27,6 +28,10 @@ closeTo(evaluateExpression('༩%*༩'), 0.81);
 closeTo(evaluateExpression('༢༠༠*༢༥%'), 50);
 
 assert.equal(format(Math.E), '༢.༧༡༨༢༨༡༨༢༨༤༦');
+assert.equal(
+  evaluateForDisplay('༩༩༩༩༩༩༩༩༩༩༩༩*༩༩༩༩༩༩༩༩༩༩༩༩'),
+  '༩༩༩༩༩༩༩༩༩༩༩༨༠༠༠༠༠༠༠༠༠༠༠༡',
+);
 assert.equal(pretty('༢**2'), '༢^༢');
 assert.throws(() => evaluateExpression('asin(༡)cos(༡)'));
 assert.throws(() => evaluateExpression('1/0'), RangeError);

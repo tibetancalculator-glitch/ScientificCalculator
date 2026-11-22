@@ -165,9 +165,27 @@ function evaluateExpression(expression, angleMode = 'RAD') {
   return new Parser(expression, angleMode).parse();
 }
 
+function evaluateForDisplay(expression, angleMode = 'RAD') {
+  if (!expression || expression.length > 128) {
+    throw new Error('Invalid expression');
+  }
+
+  const normalized = toArabic(expression).replaceAll(/\s+/g, '');
+  if (/^[+-]?\d+(?:\*[+-]?\d+)+$/.test(normalized)) {
+    const product = normalized
+      .split('*')
+      .map(value => BigInt(value))
+      .reduce((result, value) => result * value, 1n);
+    return toTibetan(product.toString());
+  }
+
+  return format(evaluateExpression(expression, angleMode));
+}
+
 if (typeof module !== 'undefined') {
   module.exports = {
     Parser,
+    evaluateForDisplay,
     evaluateExpression,
     format,
     pretty,
@@ -296,7 +314,7 @@ if (typeof document !== 'undefined') {
     if (!state.expression) return;
     try {
       const original = pretty(state.expression);
-      state.expression = format(evaluate());
+      state.expression = evaluateForDisplay(state.expression, state.angleMode);
       state.previous = `${original}  =`;
       state.calculated = true;
       setMessage();
