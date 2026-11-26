@@ -1,0 +1,73 @@
+.policy-page { background: var(--paper); }
+.policy-nav { position: relative; }
+
+.policy-hero {
+  min-height: 610px;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  background:
+    linear-gradient(rgba(93,225,208,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93,225,208,.025) 1px, transparent 1px),
+    radial-gradient(circle at 80% 45%, rgba(37,100,124,.22), transparent 30rem),
+    var(--night);
+  background-size: 42px 42px, 42px 42px, auto, auto;
+}
+
+.policy-hero-copy {
+  align-self: center;
+  padding: 90px 40px 90px clamp(28px,7.5vw,120px);
+}
+
+.policy-hero h1 { margin-block: 25px 30px; }
+.policy-intro { max-width: 680px; color: #9aa9bd; font-size: clamp(16px,1.4vw,20px); line-height: 1.7; }
+.effective-date { margin-top: 34px; color: #67788f; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.effective-date strong { margin-left: 10px; color: #d8e2ee; }
+
+.privacy-summary {
+  align-self: center;
+  width: min(430px, calc(100% - 60px));
+  padding: 35px;
+  border: 1px solid rgba(255,255,255,.13);
+  background: rgba(15,25,45,.78);
+  box-shadow: 0 35px 80px rgba(0,0,0,.3);
+}
+
+.summary-mark { width: 55px; height: 55px; display: grid; place-items: center; margin-bottom: 30px; border-radius: 50%; color: #071817; background: var(--cyan); font: 28px 'Noto Serif Tibetan',serif; }
+.privacy-summary > p, .policy-toc > p { color: var(--cyan); font-size: 9px; font-weight: 800; letter-spacing: .2em; }
+.privacy-summary ul { margin: 24px 0 0; padding: 0; list-style: none; }
+.privacy-summary li { display: flex; align-items: center; gap: 18px; padding: 17px 0; border-top: 1px solid var(--line); }
+.privacy-summary li span { color: #607189; font-size: 9px; }
+.privacy-summary li strong { color: #dce5ef; font-size: 13px; font-weight: 500; }
+
+.policy-layout { display: grid; grid-template-columns: 280px minmax(0,820px); justify-content: center; gap: clamp(55px,8vw,130px); padding: 105px clamp(24px,7.5vw,120px) 130px; color: var(--ink); }
+.policy-toc { position: sticky; top: 35px; align-self: start; display: grid; }
+.policy-toc > p { margin: 0 0 18px; color: var(--cyan-dark); }
+.policy-toc a { display: flex; gap: 13px; padding: 13px 0; border-top: 1px solid var(--dark-line); color: #9aabb0; font-size: 10px; }
+.policy-toc a span { color: #4b5b65; font-size: 12px; }
+.policy-toc a:hover span { color: var(--cyan-dark); }
+
+.policy-content article { scroll-margin-top: 30px; display: grid; grid-template-columns: 54px 1fr; gap: 28px; padding: 0 0 54px; margin-bottom: 54px; border-bottom: 1px solid var(--dark-line); }
+.policy-content article:last-child { margin-bottom: 0; }
+.article-number { width: 54px; height: 54px; display: grid; place-items: center; border: 1px solid rgba(15,158,148,.35); border-radius: 50%; color: var(--cyan-dark); font-size: 10px; font-weight: 700; }
+.policy-content h2 { margin: 2px 0 20px; color: var(--ink); font-size: clamp(35px,4vw,50px); letter-spacing: -.025em; }
+.policy-content p { max-width: 720px; margin: 0; color: #5c6b74; font-size: 16px; line-height: 1.85; }
+.policy-content .contact-card { margin: 0; padding: 42px; border: 0; background: #dce7e7; }
+.email-link { display: inline-flex; align-items: center; gap: 24px; margin-top: 30px; padding-bottom: 6px; border-bottom: 1px solid var(--cyan-dark); color: #126f69; font-size: clamp(16px,2.2vw,23px); font-weight: 700; overflow-wrap: anywhere; }
+
+@media (max-width: 900px) {
+  .policy-hero { grid-template-columns: 1fr; padding-bottom: 80px; }
+  .privacy-summary { justify-self: center; }
+  .policy-layout { grid-template-columns: 1fr; gap: 60px; }
+  .policy-toc { position: static; grid-template-columns: 1fr 1fr; column-gap: 30px; }
+  .policy-toc > p { grid-column: 1/-1; }
+}
+
+@media (max-width: 600px) {
+  .policy-hero-copy { padding: 65px 20px 55px; }
+  .privacy-summary { width: calc(100% - 40px); padding: 25px; }
+  .policy-layout { padding: 75px 20px 90px; }
+  .policy-toc { grid-template-columns: 1fr; }
+  .policy-content article { grid-template-columns: 1fr; gap: 22px; margin-bottom: 38px; padding-bottom: 38px; }
+  .article-number { width: 44px; height: 44px; }
+  .policy-content .contact-card { padding: 28px 22px; }
+}
